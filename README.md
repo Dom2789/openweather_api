@@ -1,0 +1,1 @@
+Pyhton implementation to connect to https://openweathermap.org/forecast5
