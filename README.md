@@ -1,1 +1,1 @@
-Pyhton implementation to connect to https://openweathermap.org/forecast5
+Pyhton implementation to connect to API of https://openweathermap.org/

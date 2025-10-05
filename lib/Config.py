@@ -8,6 +8,7 @@ class Config():
         self.path_prot = self.config_data[2].split(": ")[1]
         self.api_key = self.config_data[3].split(": ")[1]
 
+
     def __str__(self):
         string = ""
         for line in self.config_data:
