@@ -2,6 +2,11 @@ import requests
 
 class API_handler():
 
+    def __init__(self):
+        self.data = None
+        self.parsed = {}
+
+
     @staticmethod
     def get_posts(url:str):
         try:
@@ -20,3 +25,19 @@ class API_handler():
             # Handle any network-related errors or exceptions
             print('Error:', e)
             return None
+        
+    
+    def parse_data(self, url:str):
+        self.data = self.get_posts(url)
+        # method to parse data
+        # current weatherdata + 3 more datasets
+        # city, sunset, sunrise, coordinates
+        if self.data is None:
+            return None
+        else:
+            self.parsed['now'] = self.data['list'][0]
+
+            return self.parsed
+        
+
+api_handler = API_handler()   

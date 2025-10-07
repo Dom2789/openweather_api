@@ -1,15 +1,10 @@
-from lib.Config import Config
-from lib.API_handler import API_handler
+from lib.Config import config
+from lib.API_handler import api_handler
 
-def main():
-    
-    config = Config("/Users/dom/prog/openweather_api/config/config.txt")
+def main():   
     url = config.get_url_forecast()
     print(url)
-
-    data = API_handler.get_posts(url)
-
-    print(data["city"])
+    print(api_handler.parse_data(url))
 
 
 if __name__ == "__main__":

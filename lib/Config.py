@@ -27,3 +27,5 @@ class Config():
     def get_path_prot(self):
         return self.path_prot
     
+
+config = Config("/Users/dom/prog/openweather_api/config/config.txt")
