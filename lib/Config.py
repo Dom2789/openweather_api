@@ -3,10 +3,14 @@ class Config():
         with open(path_config_file) as file:
             self.config_data = file.readlines()
         
+        for idx, line in enumerate(self.config_data):
+            self.config_data[idx] = line.strip()
+
         self.url_weather = self.config_data[1].split(": ")[1]
         self.url_forecast = self.config_data[0].split(": ")[1]
         self.path_prot = self.config_data[2].split(": ")[1]
         self.api_key = self.config_data[3].split(": ")[1]
+        self.path_log = self.config_data[4].split(": ")[1]
 
 
     def __str__(self):
@@ -27,5 +31,8 @@ class Config():
     def get_path_prot(self):
         return self.path_prot
     
+
+    def get_path_log(self):
+        return self.path_log
 
 config = Config("/Users/dom/prog/openweather_api/config/config.txt")

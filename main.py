@@ -1,10 +1,15 @@
 from lib.Config import config
-from lib.API_handler import api_handler
+from Openweather import Openweather
+import lib.logger
 
-def main():   
+def main():  
+    path = config.get_path_prot()
+    lib.logger.setup_logging(path)
+
     url = config.get_url_forecast()
     print(url)
-    print(api_handler.parse_data(url))
+    openweather = Openweather(url)
+    print(openweather.parse_data())
 
 
 if __name__ == "__main__":
