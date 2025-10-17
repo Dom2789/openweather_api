@@ -9,8 +9,8 @@ def main():
     url = config.get_url_forecast()
     print(url)
     openweather = Openweather(url)
-    print(openweather.parse_data())
-
+    openweather.parse_data()
+    print(openweather)
 
 if __name__ == "__main__":
     
