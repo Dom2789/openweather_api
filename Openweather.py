@@ -16,17 +16,12 @@ class Openweather(API_handler):
     def parse_data(self):
         # get data 
         self.data = self.get_posts(self.url)
-            
-        # parsing data
-        self.parsed_data['city'] = self.data['city']
-        for idx, key in enumerate(self.keys):
-            self.parsed_data[key] = self.data["list"][idx]
 
-        # retrn data
-        if self.parsed_data is None:
-            return None
-        else:
-            return self.parsed_data
+        if self.data is not None:  
+            # parsing data
+            self.parsed_data['city'] = self.data['city']
+            for idx, key in enumerate(self.keys):
+                self.parsed_data[key] = self.data["list"][idx]
 
 
     def __str__(self):
@@ -47,7 +42,7 @@ class Openweather(API_handler):
 
         else:
             city:dict = self.parsed_data["city"]
-            string = ""
+            string = "Parsed data:\n\n"
             string +=f"City: {city["name"]}\n"
             
             string += f"Sunrise: {self.str_from_timestamp(city["sunrise"])}\n"
@@ -130,3 +125,63 @@ class Openweather(API_handler):
                 direction = wind_direction_long_en[direction]
         
         return direction
+    
+
+    # ----- getters -----
+    def get_keys_parsed_data(self) -> list[str]:
+        keys = self.parsed_data.keys()
+        return list(keys)
+
+    def get_city(self) -> str:
+        if self.parsed_data == {}:
+            return "no data"
+        else:
+            return self.parsed_data["city"]["name"]
+
+    def get_sunset(self) -> str:
+        if self.parsed_data == {}:
+            return "no data"
+        else:
+            return self.str_from_timestamp(self.parsed_data["city"]["sunset"])
+        
+    def get_sunrise(self) -> str:
+        if self.parsed_data == {}:
+            return "no data"
+        else:
+            return self.str_from_timestamp(self.parsed_data["city"]["sunrise"])
+    
+    def get_temperature(self, key:str) -> str:
+        if self.parsed_data == {}:
+            return "no data"
+        else:
+            return self.parsed_data[key]["main"]["temp"]
+        
+    def get_feels_like(self, key:str) -> str:
+        if self.parsed_data == {}:
+            return "no data"
+        else:
+            return self.parsed_data[key]["main"]["feels_like"]
+        
+    def get_weather_description(self, key:str) -> str:
+        if self.parsed_data == {}:
+            return "no data"
+        else:
+            return self.parsed_data[key]["weather"][0]["main"]
+        
+    def get_weather_icon(self, key:str) -> str:
+        if self.parsed_data == {}:
+            return "no data"
+        else:
+            return  self.parsed_data[key]["weather"][0]["icon"]
+        
+    def get_wind_speed(self, key:str) -> str:
+        if self.parsed_data == {}:
+            return "no data"
+        else:
+            return self.parsed_data[key]["wind"]["speed"]
+        
+    def get_wind_direction(self, key:str, de_en:bool = True) -> str:
+        if self.parsed_data == {}:
+            return "no data"
+        else:
+            return self.degree_to_direction(float(self.parsed_data[key]["wind"]["deg"]), long_string= True, de_en= de_en)

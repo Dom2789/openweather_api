@@ -11,6 +11,7 @@ def main():
     openweather = Openweather(url)
     openweather.parse_data()
     print(openweather)
+    
 
 if __name__ == "__main__":
     
