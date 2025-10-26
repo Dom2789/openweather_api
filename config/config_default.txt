@@ -2,4 +2,4 @@ url_forcast: http://api.openweathermap.org/data/2.5/forecast?lat=49.6422&lon=12.
 url_weather: http://api.openweathermap.org/data/2.5/weather?lat=49.6422&lon=12.4952&appid={API key}&units=metric&lang=de
 PWDprot: /home/___/prot/
 api_key: ________
-PWDlog: /home/____/log
+PWDlog: /home/____/log/

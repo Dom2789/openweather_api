@@ -8,7 +8,7 @@ def setup_logging(path_logfile:str, debug = False):
         level = logging.INFO
 
     logging.basicConfig(
-        filename = path_logfile + "/openweatherAPI.log",
+        filename = path_logfile + "openweatherAPI.log",
         level = level,
         style = "{",
         format = "{asctime} {levelname:8}] {message}",

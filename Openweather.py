@@ -1,5 +1,7 @@
 from lib.API_handler import API_handler
 from datetime import datetime
+import logging
+import json
 
 # parse for openweather specific JSON 
 # move it form API_handler.py parse-function
@@ -36,7 +38,7 @@ class Openweather(API_handler):
             return self.print_parsed_data()
         
 
-    def print_parsed_data(self) -> str:
+    def print_parsed_data(self, de_en = False) -> str:
         if self.parsed_data == {}:
             return "No parsed data availible yet"
 
@@ -59,7 +61,10 @@ class Openweather(API_handler):
                 string += f"Temperature: {main["temp"]}°C\n"
                 string += f"Feels like: {main["feels_like"]}\n"
 
-                string += f"Description: {weather["main"]}\n"
+                if de_en:
+                    string += f"Description: {weather["description"]}\n"
+                else:
+                    string += f"Description: {weather["main"]}\n"
 
                 string += f"Wind speed: {wind["speed"]}m/s\n"
                 string += f"Wind direction: {self.degree_to_direction(float(wind["deg"]), long_string= True)}\n"
@@ -67,6 +72,19 @@ class Openweather(API_handler):
                 string += "\n"
 
             return string
+
+
+    def save_parsed_data_to_json_file(self, path:str):
+        if self.parsed_data == {}:
+            
+            logging.info("Tried to save parsed data to file, when no data is available.")
+        else:
+            print("hello")
+            file = path + "parsed_data.json" 
+            with open(file, "w") as f:
+                json.dump(self.parsed_data, f)
+            logging.info(f"Saved parsed data to {file}")
+        
 
 
     @staticmethod
@@ -162,9 +180,11 @@ class Openweather(API_handler):
         else:
             return self.parsed_data[key]["main"]["feels_like"]
         
-    def get_weather_description(self, key:str) -> str:
+    def get_weather_description(self, key:str, de_en = False) -> str:
         if self.parsed_data == {}:
             return "no data"
+        elif de_en:
+            return self.parsed_data[key]["weather"][0]["description"]
         else:
             return self.parsed_data[key]["weather"][0]["main"]
         

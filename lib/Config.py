@@ -35,4 +35,4 @@ class Config():
     def get_path_log(self):
         return self.path_log
 
-config = Config("/Users/dom/prog/openweather_api/config/config.txt")
+config = Config("/home/dom/prog/openweather_api/config/config.txt")

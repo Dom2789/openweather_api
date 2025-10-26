@@ -10,7 +10,7 @@ def main():
     print(url)
     openweather = Openweather(url)
     openweather.parse_data()
-    print(openweather)
+    openweather.save_parsed_data_to_json_file(config.get_path_prot())
     
 
 if __name__ == "__main__":
